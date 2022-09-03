@@ -46,7 +46,7 @@ const displayNews = newsAll => {
         const div = document.createElement('div');
         div.classList.add('row')
         div.innerHTML = `
-        <div class="col-lg-4 col-sm-12 my-3 img-fluid"><img src="${thumbnail_url == null ? 'no data available' : thumbnail_url}" alt=""></div>
+        <div class="thumbnail-img col-lg-4 col-sm-12 my-3 img-fluid"><img src="${thumbnail_url == null ? 'no data available' : thumbnail_url}" alt=""></div>
         <div class="col-lg-8 col-sm-12 my-3">
             <h3>${title}</h3>
             <p>${details.length > 400 ? details.slice(0, 400) + '...' : details}</p>
