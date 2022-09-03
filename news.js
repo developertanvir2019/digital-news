@@ -18,7 +18,7 @@ const displayCategory = categories => {
 
 loadAllCategories();
 
-
+//show news part 
 
 const showNews = (category_id) => {
     fetch(`https://openapi.programming-hero.com/api/news/category/${category_id}`)
@@ -31,22 +31,24 @@ const displayNews = newsAll => {
     const newsId = document.getElementById('news-id');
     newsId.textContent = '';
     newsAll.forEach(news => {
+        console.log(news)
         const { author, details, thumbnail_url, title, total_view } = news;
 
 
         const div = document.createElement('div');
         div.classList.add('row')
         div.innerHTML = `
-        <div class="col-lg-4 col-sm-12 py-2"><img src="${thumbnail_url}" alt=""></div>
-        <div class="col-lg-8 col-sm-12 py-2">
+        <div class="col-lg-4 col-sm-12 my-3"><img src="${thumbnail_url == null ? 'no data available' : thumbnail_url}" alt=""></div>
+        <div class="col-lg-8 col-sm-12 my-3">
             <h3>${title}</h3>
             <p>${details.length > 400 ? details.slice(0, 400) + '...' : details}</p>
-            <div class="d-flex justify-content-evenly">
+            <div class="d-flex justify-content-evenly pt-4">
                 <div class="d-flex">
-                    <div><img src="${author.img}" alt=""></div>
-                    <p>${author.name}</p>
+                <div class="image-div"><img src="${author.img == null ? 'no data available' : author.img}" alt=""></div>
+                    <h6>${author.name == null ? 'no data available' : author.name}</h6>
                 </div>
-                <div></div>
+                <div><i class="fa fa-eye" aria-hidden="true"></i> ${total_view == null ? 'no data available' : total_view}</div>
+                <button class="btn btn-primary">view</button>
             </div>
         </div>
         `;
