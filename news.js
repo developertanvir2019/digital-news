@@ -20,16 +20,42 @@ loadAllCategories();
 
 
 
-// const showNews = (category_id) => {
-//     fetch(`https://openapi.programming-hero.com/api/news/category/${category_id}`)
-//         .then(res => res.json())
-//         .then(data => displayNews(data.data))
-// }
+const showNews = (category_id) => {
+    fetch(`https://openapi.programming-hero.com/api/news/category/${category_id}`)
+        .then(res => res.json())
+        .then(data => displayNews(data.data))
+}
 
-// const displayNews = newsAll => {
-//     console.log(newsAll);
-//     const {author,details,image_url,thumbnail_url,title}
-// }
+const displayNews = newsAll => {
+    console.log(newsAll)
+    const newsId = document.getElementById('news-id');
+    newsId.textContent = '';
+    newsAll.forEach(news => {
+        const { author, details, thumbnail_url, title, total_view } = news;
+
+
+        const div = document.createElement('div');
+        div.classList.add('row')
+        div.innerHTML = `
+        <div class="col-lg-4 col-sm-12 py-2"><img src="${thumbnail_url}" alt=""></div>
+        <div class="col-lg-8 col-sm-12 py-2">
+            <h3>${title}</h3>
+            <p>${details.length > 400 ? details.slice(0, 400) + '...' : details}</p>
+            <div class="d-flex justify-content-evenly">
+                <div class="d-flex">
+                    <div><img src="${author.img}" alt=""></div>
+                    <p>${author.name}</p>
+                </div>
+                <div></div>
+            </div>
+        </div>
+        `;
+        newsId.appendChild(div);
+    });
+}
+
+
+
 
 
 
