@@ -21,6 +21,7 @@ loadAllCategories();
 //show news part 
 
 const showNews = (category_id) => {
+    toggleSpinner(true);
     fetch(`https://openapi.programming-hero.com/api/news/category/${category_id}`)
         .then(res => res.json())
         .then(data => displayNews(data.data))
@@ -30,6 +31,7 @@ const displayNews = newsAll => {
     console.log(newsAll)
     const newsId = document.getElementById('news-id');
     newsId.textContent = '';
+    toggleSpinner(false);
     newsAll.forEach(news => {
         console.log(news)
         const { author, details, thumbnail_url, title, total_view } = news;
@@ -56,6 +58,17 @@ const displayNews = newsAll => {
     });
 }
 
+
+//spinner part 
+const toggleSpinner = isSpinning => {
+    const spinnerSection = document.getElementById('spinner-section');
+    if (isSpinning) {
+        spinnerSection.classList.remove('d-none')
+    }
+    else {
+        spinnerSection.classList.add('d-none')
+    }
+}
 
 
 
