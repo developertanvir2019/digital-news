@@ -28,15 +28,21 @@ const showNews = (category_id) => {
 }
 
 const displayNews = newsAll => {
-    console.log(newsAll)
+    const newsAmount = newsAll.length;
+    const totalItem = document.getElementById('total-item');
+    totalItem.textContent = '';
+    const div = document.createElement('div');
+    div.innerHTML = `
+    <h5 class="bg-light py-4 text-center">${newsAmount} items found for the category</h5>
+    `;
+    totalItem.appendChild(div);
+
+
     const newsId = document.getElementById('news-id');
     newsId.textContent = '';
     toggleSpinner(false);
     newsAll.forEach(news => {
-        console.log(news)
         const { author, details, thumbnail_url, title, total_view } = news;
-
-
         const div = document.createElement('div');
         div.classList.add('row')
         div.innerHTML = `
@@ -75,12 +81,11 @@ const toggleSpinner = isSpinning => {
 
 
 
+// // Md. Mahabub Hasan Sany9:59 PM
+// // লোড হওয়া নিউজ এর ডাটাগুলো বেশি ভিউ অনুসারে  সর্টিং করার ক্ষেত্রে  আমরা নিচের দেওয়া ফাংশনটি ব্যবহার করতে পারি :
 
-// Md. Mahabub Hasan Sany9:59 PM
-// লোড হওয়া নিউজ এর ডাটাগুলো বেশি ভিউ অনুসারে  সর্টিং করার ক্ষেত্রে  আমরা নিচের দেওয়া ফাংশনটি ব্যবহার করতে পারি :
+// // datas.sort((a, b) => {
+// //     return b.propertyName - a.propertyName;
+// // });
 
-// datas.sort((a, b) => {
-//     return b.propertyName - a.propertyName;
-// });
-
-// এখানে datas হচ্ছে ক্যাটাগরি অনুসারে API ফেচ করার পর যে ডাটাগুলো পাওয়া গিয়েছে সেটা।
+// // এখানে datas হচ্ছে ক্যাটাগরি অনুসারে API ফেচ করার পর যে ডাটাগুলো পাওয়া গিয়েছে সেটা।
