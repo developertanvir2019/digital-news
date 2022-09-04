@@ -25,9 +25,13 @@ const showNews = (category_id) => {
     fetch(`https://openapi.programming-hero.com/api/news/category/${category_id}`)
         .then(res => res.json())
         .then(data => displayNews(data.data))
+
 }
 
 const displayNews = newsAll => {
+    newsAll.sort((a, b) => {
+        return b.total_view - a.total_view;
+    });
     const newsAmount = newsAll.length;
     const totalItem = document.getElementById('total-item');
     totalItem.textContent = '';
@@ -43,13 +47,14 @@ const displayNews = newsAll => {
     toggleSpinner(false);
     newsAll.forEach(news => {
         const { author, details, thumbnail_url, title, total_view } = news;
+
         const div = document.createElement('div');
         div.classList.add('row')
         div.innerHTML = `
-        <div class="thumbnail-img col-lg-4 col-sm-12 my-3 img-fluid"><img src="${thumbnail_url == null ? 'no data available' : thumbnail_url}" alt=""></div>
+        <div class="col-lg-4 col-sm-12 my-3 img-fluid"><img class="thumbnail-img" src="${thumbnail_url == null ? 'no data available' : thumbnail_url}" alt=""></div>
         <div class="col-lg-8 col-sm-12 my-3">
             <h3>${title}</h3>
-            <p>${details.length > 400 ? details.slice(0, 400) + '...' : details}</p>
+            <p class="container">${details.length > 300 ? details.slice(0, 300) + '...' : details}</p>
             <div class="d-flex justify-content-evenly pt-4">
                 <div class="d-flex">
                 <div class="image-div"><img src="${author.img == null ? 'no data available' : author.img}" alt=""></div>
@@ -111,11 +116,5 @@ const displayDetail = detail => {
 
 
 
-// // Md. Mahabub Hasan Sany9:59 PM
-// // লোড হওয়া নিউজ এর ডাটাগুলো বেশি ভিউ অনুসারে  সর্টিং করার ক্ষেত্রে  আমরা নিচের দেওয়া ফাংশনটি ব্যবহার করতে পারি :
 
-// // datas.sort((a, b) => {
-// //     return b.propertyName - a.propertyName;
-// // });
 
-// // এখানে datas হচ্ছে ক্যাটাগরি অনুসারে API ফেচ করার পর যে ডাটাগুলো পাওয়া গিয়েছে সেটা।
